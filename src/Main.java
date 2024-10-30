@@ -6,13 +6,13 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
 
- //       QuestionOne();
- //       QuestionTwo();
-  //      QuestionThree();
- //       QuestionFour();
-  //      QuestionFive();
-        //QuestionSix();
-   //     QuestionSeven();
+        QuestionOne();
+        QuestionTwo();
+        QuestionThree();
+        QuestionFour();
+        QuestionFive();
+        QuestionSix();
+        QuestionSeven();
         QuestionEight();
 
     }
