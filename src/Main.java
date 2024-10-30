@@ -1,8 +1,6 @@
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.IllegalFormatException;
-import java.util.Scanner;
+import java.util.*;
+
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -10,12 +8,12 @@ public class Main {
 
  //       QuestionOne();
  //       QuestionTwo();
-        QuestionThree();
-//        QuestionFour();
-//        QuestionFive();
-//        QuestionSix();
-//        QuestionSeven();
-//        QuestionEight();
+  //      QuestionThree();
+ //       QuestionFour();
+  //      QuestionFive();
+        //QuestionSix();
+   //     QuestionSeven();
+        QuestionEight();
 
     }
 
@@ -95,20 +93,35 @@ public class Main {
         int [] numbers = {1,4,17,7,25,3,100};
         Scanner input = new Scanner(System.in);
         System.out.println("Enter number :");
+        try{
         int userInput = input.nextInt();
+
+        if(userInput < 1)throw new Exception("please enter number range of 1 to 7");
+
         ArrayList<Integer> largestNumber = new ArrayList<>();
 
         System.out.println("All numbers : "+Arrays.toString(numbers) );
         int largestNumberElement = 0;
 
-        for(int i =0;i < userInput;i++){
-            largestNumberElement = largestByOrder(numbers);
-            largestNumber.add(largestNumberElement);
-            numbers = removeElement(numbers,largestNumberElement);
+
+
+            for(int i =0;i < userInput;i++){
+                largestNumberElement = largestByOrder(numbers);
+                largestNumber.add(largestNumberElement);
+                numbers = removeElement(numbers,largestNumberElement);
+            }
+            System.out.println("Largest number : "+largestNumber);
+        }catch (NegativeArraySizeException e){
+            System.out.println("please enter number range of 1 to 7");
+        }catch (InputMismatchException e){
+            System.out.println("Incorrect user input please Enter only number from 1 to 7");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
         }
 
 
-        System.out.println("Largest number : "+largestNumber);
+
+
 
 
     }
@@ -154,80 +167,96 @@ public class Main {
 
     public static void QuestionFive(){
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter size of array : ");
-        String [] menuArray = new String[input.nextInt()];
+        try{
+            System.out.println("Enter size of array : ");
+            String [] menuArray = new String[input.nextInt()];
 
 
-        String userInputMenu = "";
-        int addIndex = 0;
+            String userInputMenu = "";
+            int addIndex = 0;
 
-        String searchElement = "";
-        boolean found = false;
-        boolean exit = false;
+            String searchElement = "";
+            boolean found = false;
+            boolean exit = false;
 
-        do{
-            System.out.println("Enter number menu to make action \n1- Add element \n2- Display elements \n3- Search element \n4- Sort array \n5- Exit");
+            do{
+                System.out.println("Enter number menu to make action \n1- Add element \n2- Display elements \n3- Search element \n4- Sort array \n5- Exit");
 
-            userInputMenu = input.next();
-            switch (userInputMenu){
-                case "1":
-                    if(addIndex < menuArray.length ){
-                        System.out.println("Enter new element : ");
-                        menuArray[addIndex] = input.next();
-                        addIndex++;
+                userInputMenu = input.next();
+                switch (userInputMenu){
+                    case "1":
+                        if(addIndex < menuArray.length ){
+                            System.out.println("Enter new element : ");
+                            menuArray[addIndex] = input.next();
+                            addIndex++;
 
-                    }else{
-                        System.out.println("Array is full you entered the maximum length of array");
-                    }
-                    break;
-                case "2":
-                    System.out.println("Display elements : \n"+Arrays.toString(menuArray));
-                    break;
-                case "3":
-                    System.out.println("Enter search element : ");
-                    searchElement = input.next();
-                    for (String item : menuArray){
-                        if(item.equals(searchElement)){
-                            System.out.println("Found the search element : "+ item);
-                            found = true;
-                            break;
+                        }else{
+                            System.out.println("Array is full you entered the maximum length of array");
                         }
-                        found = false;
-                    }
-                    if(found == false){
-                        System.out.println("Element not found");
-                    }
+                        break;
+                    case "2":
+                        System.out.println("Display elements : \n"+Arrays.toString(menuArray));
+                        break;
+                    case "3":
+                        System.out.println("Enter search element : ");
+                        searchElement = input.next();
+                        for (String item : menuArray){
+                            if(item.equals(searchElement)){
+                                System.out.println("Found the search element : "+ item);
+                                found = true;
+                                break;
+                            }
+                            found = false;
+                        }
+                        if(found == false){
+                            System.out.println("Element not found");
+                        }
+                        break;
+                    case "4":
+                        Arrays.sort(menuArray);
+                        System.out.println("Sort array : \n"+Arrays.toString(menuArray));
+                        break;
+                    case "5":
+                        System.out.println("Exit");
+                        exit = true;
+                        break;
+                    default:
+                        System.out.println("Invalid menu");
+                        break;
+                }
+                if (exit == true){
                     break;
-                case "4":
-                    Arrays.sort(menuArray);
-                    System.out.println("Sort array : \n"+Arrays.toString(menuArray));
-                    break;
-                case "5":
-                    System.out.println("Exit");
-                    exit = true;
-                    break;
-                default:
-                    System.out.println("Invalid menu");
-                    break;
-            }
-            if (exit == true){
-                break;
-            }
+                }
 
 
 
-        }while (true);
+            }while (true);
+        }catch (InputMismatchException e){
+            System.out.println("Incorrect user input please Enter only number");
+        }
+
 
     }
 
     public static void QuestionSix(){
         Scanner input = new Scanner(System.in);
+        try{
+
+
         System.out.println("Enter the minimum number of the range : ");
         int min = input.nextInt();
         System.out.println("Enter the maximum number of the range : ");
         int max = input.nextInt();
+        if(min >= max){
+            throw new Exception("can't enter min number greater then max number or are equaled");
+        }
         System.out.println("Enter the number of random numbers to generate : ");
         int numRandom = input.nextInt();
+
+        if(numRandom  <=0){
+            throw new Exception("can't enter 0 or less then 0 ");
+        }
+
 
         String strRandom = "";
         for (int i = 0; i < numRandom; i++){
@@ -237,6 +266,11 @@ public class Main {
         }
 
         System.out.println("Random numbers : "+strRandom);
+        }catch (InputMismatchException e){
+            System.out.println("Incorrect user input please Enter only number");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
     public static int generateRandomNumber(int min, int max){
         return (int)(Math.random() * (max - min) + (min+1));
@@ -244,15 +278,21 @@ public class Main {
     public static void QuestionSeven(){
 
         Scanner input = new Scanner(System.in);
-        System.out.println("Enter password :");
-        String password = input.nextLine();
+        try{
+            System.out.println("Enter password :");
+            String password = input.nextLine();
+            if (password.isEmpty()) throw new Exception("can't enter empty password");
 
-        int scorePoint = checkLength(password)+checkSpicalCharacter(password)+checkUpperLowerCase(password);
-        if(scorePoint < 5){
-            System.out.println("You password is weak");
-        }else if(scorePoint < 7 && scorePoint >= 5){
-            System.out.println("You password is moderately");
-        }else System.out.println("You password is Strong");
+            int scorePoint = checkLength(password)+checkSpicalCharacter(password)+checkUpperLowerCase(password);
+            if(scorePoint < 5){
+                System.out.println("You password is weak");
+            }else if(scorePoint < 7 && scorePoint >= 5){
+                System.out.println("You password is moderately");
+            }else System.out.println("You password is Strong");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
 
     }
     public static int checkLength(String password){
@@ -309,9 +349,18 @@ public class Main {
 
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the number of Fibonacci terms to generate : ");
-        int numFibonacci = input.nextInt();
+        try{
+            int numFibonacci = input.nextInt();
 
-        System.out.println(Arrays.toString(getFibonacciSequence(numFibonacci)));
+            if(numFibonacci <= 0)throw new Exception("can't enter 0 or less then 0");
+
+            System.out.println(Arrays.toString(getFibonacciSequence(numFibonacci)));
+        }catch (InputMismatchException e){
+            System.out.println("Incorrect user input please Enter only number");
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+
 
     }
     public static int[] getFibonacciSequence(int numFibonacci){
